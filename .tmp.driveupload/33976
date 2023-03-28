@@ -1,0 +1,2538 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title>Basis Data Infrastruktur Air Minum</title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/background_0.js"></script>
+        <script src="data/Batas_Wilayah_Kel_Desa_SITARO_6.js"></script>
+        <script src="data/Batas_Wilayah_Kecamatan_SITARO_7.js"></script>
+        <script src="data/UnitSPALDT_8.js"></script>
+        <script src="data/IPA_9.js"></script>
+        <script src="data/BangunanPengambilan_10.js"></script>
+        <script src="data/Reservoir_11.js"></script>
+        <script src="data/PengelolaSPAM_12.js"></script>
+        <script src="data/SumberAirBaku_13.js"></script>
+        <script src="data/SR_14.js"></script>
+        <script src="data/AccPipa_15.js"></script>
+        <script src="data/SarprasSPAM_16.js"></script>
+        <script src="data/JaringanPipaSPAM_17.js"></script>
+        <script>
+        var m2px = 1;
+        function newM2px() {
+            var centerLatLng = map.getCenter();
+            var pointC = map.latLngToContainerPoint(centerLatLng);
+            var pointX = [pointC.x + 100, pointC.y];
+
+            var latLngC = map.containerPointToLatLng(pointC);
+            var latLngX = map.containerPointToLatLng(pointX);
+
+            var distanceX = latLngC.distanceTo(latLngX)/100;
+
+            reciprocal = 1 / distanceX;
+            m2px = reciprocal;
+        }
+        function geoStyle(m) {
+            return Math.ceil(m * m2px);
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[2.3284042070045614,125.37016745357343],[2.3626154792303224,125.44628409940907]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        function pop_background_0(feature, layer) {
+        }
+
+        function style_background_0_0() {
+            return {
+                pane: 'pane_background_0',
+                opacity: 1,
+                color: 'rgba(127,127,127,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_background_0');
+        map.getPane('pane_background_0').style.zIndex = 400;
+        map.getPane('pane_background_0').style['mix-blend-mode'] = 'normal';
+        var layer_background_0 = new L.geoJson(json_background_0, {
+            attribution: '<a href=""><a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a></a>',
+            interactive: true,
+            dataVar: 'json_background_0',
+            layerName: 'layer_background_0',
+            pane: 'pane_background_0',
+            onEachFeature: pop_background_0,
+            style: style_background_0_0,
+        });
+        bounds_group.addLayer(layer_background_0);
+        map.addLayer(layer_background_0);
+        map.createPane('pane_GoogleSatellite_1');
+        map.getPane('pane_GoogleSatellite_1').style.zIndex = 401;
+        var layer_GoogleSatellite_1 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatellite_1',
+            opacity: 0.9,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleSatellite_1;
+        map.addLayer(layer_GoogleSatellite_1);
+        map.createPane('pane_GoogleLabels_2');
+        map.getPane('pane_GoogleLabels_2').style.zIndex = 402;
+        var layer_GoogleLabels_2 = L.tileLayer('https://mt1.google.com/vt/lyrs=h&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleLabels_2',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleLabels_2;
+        map.addLayer(layer_GoogleLabels_2);
+        map.createPane('pane_hillshades_4');
+        map.getPane('pane_hillshades_4').style.zIndex = 404;
+        var layer_hillshades_4 = L.tileLayer('https://api.maptiler.com/tiles/hillshades/{z}/{x}/{y}.png?key=Shqsm4YiyuqHeqebe6O7', {
+            pane: 'pane_hillshades_4',
+            opacity: 0.2,
+            attribution: '<a href=""><a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a></a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 12
+        });
+        layer_hillshades_4;
+        map.addLayer(layer_hillshades_4);
+        function pop_Batas_Wilayah_Kel_Desa_SITARO_6(feature, layer) {
+        }
+
+        function style_Batas_Wilayah_Kel_Desa_SITARO_6_0(feature) {
+            switch(String(feature.properties['WADMKD'])) {
+                case 'Akesimbeka':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(48,18,59,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Apelawo':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(52,26,79,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Apengsala':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(54,34,98,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Area Tidak Terdefinisi':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(57,43,116,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Bahoi':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(60,50,133,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Bahu':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(63,58,149,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Balehumara':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(64,65,164,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Balirangeng':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(66,73,177,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Bandil':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(68,80,190,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Barangka Pehe':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(69,88,201,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Batubulan':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(69,95,212,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Batumawira':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(70,102,221,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Batusenggo':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(71,109,229,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Bawo':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(71,116,236,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Bawoleu':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(71,123,242,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Bebali':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(70,130,248,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Beong':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(69,137,252,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Biau':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(68,144,254,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Biau Seha':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(65,150,255,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Binalu':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(61,157,254,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Bira Kiama':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(57,164,252,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Birarikei':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(53,171,248,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Boto':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(47,178,244,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Buang':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(43,184,239,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Buha':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(38,191,232,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Buhias':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(34,197,226,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Buise':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(30,203,219,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Bukide':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(26,209,211,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Bulangan':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(25,214,204,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Bumbiha':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(24,219,197,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Dalinsaheng':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(24,223,190,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Dame':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(25,227,184,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Dame I':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(29,231,178,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Deahe':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(34,235,170,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Dompase':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(41,239,162,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Haasi':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(48,241,154,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Hiung':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(56,244,145,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Humbia':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(66,247,136,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Kalihiang':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(76,248,127,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Kanang':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(86,250,117,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Kanawong':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(97,252,108,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Kapeta':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(108,254,99,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Karalung':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(119,254,91,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Karalung Satu':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(128,255,83,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Karungo':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(138,255,76,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Kawahang':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(148,254,69,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Kiawang':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(157,254,64,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Kinali':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(164,252,60,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Kisihang':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(171,251,56,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Laghaeng':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(178,249,54,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Lahopang':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(186,246,53,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Lai':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(193,243,52,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Laingpatehi':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(199,239,52,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Lamanggo':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(206,235,52,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Lehi':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(212,231,53,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Lesah':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(219,226,54,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Lesah Rende':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(224,222,55,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Lia':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(229,217,56,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Lia Satu':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(235,211,57,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Lumbo':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(239,206,58,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Mahangiang':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(243,200,58,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Mahuneni':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(246,195,58,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Makalehi':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(249,188,57,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Makalehi Timur':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(251,183,55,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Makalehi Utara':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(252,176,54,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Makoa':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(254,169,51,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Mala':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(254,162,48,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Matole':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(254,154,45,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Minanga':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(254,146,42,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Mini':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(253,138,38,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Mohongsawang':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(251,130,34,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Mulengen':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(250,122,31,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Nameng':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(248,114,28,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Ondong':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(245,106,24,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Pahepa':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(242,97,20,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Pahiama':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(240,90,18,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Pangirolong':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(236,83,15,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Paniki':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(233,76,12,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Paseng':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(229,70,11,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Pehe':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(225,65,9,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Peling':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(220,59,7,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Peling Sawang':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(215,54,6,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Pumpente':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(209,48,5,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Salili':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(204,43,4,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Sawang':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(198,38,3,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Talawid':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(192,34,2,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Tanaki':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(185,30,2,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Tapile':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(178,26,1,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Tarorane':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(170,22,1,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Tatahadeng':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(163,19,1,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Tope':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(155,15,1,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Tulusan':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(147,11,1,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Winangun':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(137,8,2,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Wo':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(128,6,2,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+                opacity: 1,
+                color: 'rgba(122,4,3,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Batas_Wilayah_Kel_Desa_SITARO_6');
+        map.getPane('pane_Batas_Wilayah_Kel_Desa_SITARO_6').style.zIndex = 406;
+        map.getPane('pane_Batas_Wilayah_Kel_Desa_SITARO_6').style['mix-blend-mode'] = 'normal';
+        var layer_Batas_Wilayah_Kel_Desa_SITARO_6 = new L.geoJson(json_Batas_Wilayah_Kel_Desa_SITARO_6, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Batas_Wilayah_Kel_Desa_SITARO_6',
+            layerName: 'layer_Batas_Wilayah_Kel_Desa_SITARO_6',
+            pane: 'pane_Batas_Wilayah_Kel_Desa_SITARO_6',
+            onEachFeature: pop_Batas_Wilayah_Kel_Desa_SITARO_6,
+            style: style_Batas_Wilayah_Kel_Desa_SITARO_6_0,
+        });
+        bounds_group.addLayer(layer_Batas_Wilayah_Kel_Desa_SITARO_6);
+        map.addLayer(layer_Batas_Wilayah_Kel_Desa_SITARO_6);
+        function pop_Batas_Wilayah_Kecamatan_SITARO_7(feature, layer) {
+        }
+
+        function style_Batas_Wilayah_Kecamatan_SITARO_7_0(feature) {
+            switch(String(feature.properties['WADMKC'])) {
+                case 'Biaro':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kecamatan_SITARO_7',
+                opacity: 1,
+                color: 'rgba(48,18,59,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Siau Barat':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kecamatan_SITARO_7',
+                opacity: 1,
+                color: 'rgba(69,91,205,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Siau Barat Selatan':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kecamatan_SITARO_7',
+                opacity: 1,
+                color: 'rgba(62,156,254,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Siau Barat Utara':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kecamatan_SITARO_7',
+                opacity: 1,
+                color: 'rgba(24,215,203,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Siau Tengah':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kecamatan_SITARO_7',
+                opacity: 1,
+                color: 'rgba(72,248,130,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Siau Timur':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kecamatan_SITARO_7',
+                opacity: 1,
+                color: 'rgba(164,252,60,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Siau Timur Selatan':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kecamatan_SITARO_7',
+                opacity: 1,
+                color: 'rgba(226,220,56,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Tagulandang':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kecamatan_SITARO_7',
+                opacity: 1,
+                color: 'rgba(254,163,49,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Tagulandang Selatan':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kecamatan_SITARO_7',
+                opacity: 1,
+                color: 'rgba(239,89,17,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Tagulandang Utara':
+                    return {
+                pane: 'pane_Batas_Wilayah_Kecamatan_SITARO_7',
+                opacity: 1,
+                color: 'rgba(194,36,3,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_Batas_Wilayah_Kecamatan_SITARO_7',
+                opacity: 1,
+                color: 'rgba(122,4,3,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Batas_Wilayah_Kecamatan_SITARO_7');
+        map.getPane('pane_Batas_Wilayah_Kecamatan_SITARO_7').style.zIndex = 407;
+        map.getPane('pane_Batas_Wilayah_Kecamatan_SITARO_7').style['mix-blend-mode'] = 'normal';
+        var layer_Batas_Wilayah_Kecamatan_SITARO_7 = new L.geoJson(json_Batas_Wilayah_Kecamatan_SITARO_7, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Batas_Wilayah_Kecamatan_SITARO_7',
+            layerName: 'layer_Batas_Wilayah_Kecamatan_SITARO_7',
+            pane: 'pane_Batas_Wilayah_Kecamatan_SITARO_7',
+            onEachFeature: pop_Batas_Wilayah_Kecamatan_SITARO_7,
+            style: style_Batas_Wilayah_Kecamatan_SITARO_7_0,
+        });
+        bounds_group.addLayer(layer_Batas_Wilayah_Kecamatan_SITARO_7);
+        map.addLayer(layer_Batas_Wilayah_Kecamatan_SITARO_7);
+        function pop_UnitSPALDT_8(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['unit_spaldt'] !== null ? autolinker.link(feature.properties['unit_spaldt'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['jenis_spaldt'] !== null ? autolinker.link(feature.properties['jenis_spaldt'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tahun_spaldt'] !== null ? autolinker.link(feature.properties['tahun_spaldt'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['pengelola_spaldt'] !== null ? autolinker.link(feature.properties['pengelola_spaldt'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['kondisi_spaldt'] !== null ? autolinker.link(feature.properties['kondisi_spaldt'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['sumberdana_spaldt'] !== null ? autolinker.link(feature.properties['sumberdana_spaldt'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['aset_spaldt'] !== null ? autolinker.link(feature.properties['aset_spaldt'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['foto_spaldt'] !== null ? '<img src="images/' + String(feature.properties['foto_spaldt']).replace(/[\\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_UnitSPALDT_8_0() {
+            return {
+                pane: 'pane_UnitSPALDT_8',
+                opacity: 1,
+                color: 'rgba(255,124,1,0.9019607843137255)',
+                dashArray: '1,5',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 3.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,124,1,0.5019607843137255)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_UnitSPALDT_8');
+        map.getPane('pane_UnitSPALDT_8').style.zIndex = 408;
+        map.getPane('pane_UnitSPALDT_8').style['mix-blend-mode'] = 'normal';
+        var layer_UnitSPALDT_8 = new L.geoJson(json_UnitSPALDT_8, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_UnitSPALDT_8',
+            layerName: 'layer_UnitSPALDT_8',
+            pane: 'pane_UnitSPALDT_8',
+            onEachFeature: pop_UnitSPALDT_8,
+            style: style_UnitSPALDT_8_0,
+        });
+        bounds_group.addLayer(layer_UnitSPALDT_8);
+        function pop_IPA_9(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">UnitSPAM</th>\
+                        <td>' + (feature.properties['UnitSPAM'] !== null ? autolinker.link(feature.properties['UnitSPAM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KonstruksiIPA</th>\
+                        <td>' + (feature.properties['KonstruksiIPA'] !== null ? autolinker.link(feature.properties['KonstruksiIPA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LuasLahanIPA</th>\
+                        <td>' + (feature.properties['LuasLahanIPA'] !== null ? autolinker.link(feature.properties['LuasLahanIPA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">JenisPengolahanIPA</th>\
+                        <td>' + (feature.properties['JenisPengolahanIPA'] !== null ? autolinker.link(feature.properties['JenisPengolahanIPA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SumberEnergiIPA</th>\
+                        <td>' + (feature.properties['SumberEnergiIPA'] !== null ? autolinker.link(feature.properties['SumberEnergiIPA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KapTerpasang</th>\
+                        <td>' + (feature.properties['KapTerpasang'] !== null ? autolinker.link(feature.properties['KapTerpasang'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KapProduksi</th>\
+                        <td>' + (feature.properties['KapProduksi'] !== null ? autolinker.link(feature.properties['KapProduksi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KapIdle</th>\
+                        <td>' + (feature.properties['KapIdle'] !== null ? autolinker.link(feature.properties['KapIdle'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MeterInduk</th>\
+                        <td>' + (feature.properties['MeterInduk'] !== null ? autolinker.link(feature.properties['MeterInduk'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_IPA_9_0() {
+            return {
+                pane: 'pane_IPA_9',
+                shape: 'diamond',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(1,255,35,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_IPA_9');
+        map.getPane('pane_IPA_9').style.zIndex = 409;
+        map.getPane('pane_IPA_9').style['mix-blend-mode'] = 'normal';
+        var layer_IPA_9 = new L.geoJson(json_IPA_9, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_IPA_9',
+            layerName: 'layer_IPA_9',
+            pane: 'pane_IPA_9',
+            onEachFeature: pop_IPA_9,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_IPA_9_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_IPA_9);
+        map.addLayer(layer_IPA_9);
+        function pop_BangunanPengambilan_10(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>NamaSumberAir</strong><br />' + (feature.properties['NamaSumberAir'] !== null ? autolinker.link(feature.properties['NamaSumberAir'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DebitUji1</th>\
+                        <td>' + (feature.properties['DebitUji1'] !== null ? autolinker.link(feature.properties['DebitUji1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TanggalUji1</th>\
+                        <td>' + (feature.properties['TanggalUji1'] !== null ? autolinker.link(feature.properties['TanggalUji1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DebitUji2</th>\
+                        <td>' + (feature.properties['DebitUji2'] !== null ? autolinker.link(feature.properties['DebitUji2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TanggalUji2</th>\
+                        <td>' + (feature.properties['TanggalUji2'] !== null ? autolinker.link(feature.properties['TanggalUji2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DebitRata</th>\
+                        <td>' + (feature.properties['DebitRata'] !== null ? autolinker.link(feature.properties['DebitRata'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DesaKelurahan</th>\
+                        <td>' + (feature.properties['DesaKelurahan'] !== null ? autolinker.link(feature.properties['DesaKelurahan'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kecamatan</th>\
+                        <td>' + (feature.properties['Kecamatan'] !== null ? autolinker.link(feature.properties['Kecamatan'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">JenisBangunanPengambil</th>\
+                        <td>' + (feature.properties['JenisBangunanPengambil'] !== null ? autolinker.link(feature.properties['JenisBangunanPengambil'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CaraUjiDebit</th>\
+                        <td>' + (feature.properties['CaraUjiDebit'] !== null ? autolinker.link(feature.properties['CaraUjiDebit'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TahunBangun</th>\
+                        <td>' + (feature.properties['TahunBangun'] !== null ? autolinker.link(feature.properties['TahunBangun'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_BangunanPengambilan_10_0() {
+            return {
+                pane: 'pane_BangunanPengambilan_10',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(1,255,251,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_BangunanPengambilan_10');
+        map.getPane('pane_BangunanPengambilan_10').style.zIndex = 410;
+        map.getPane('pane_BangunanPengambilan_10').style['mix-blend-mode'] = 'normal';
+        var layer_BangunanPengambilan_10 = new L.geoJson(json_BangunanPengambilan_10, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_BangunanPengambilan_10',
+            layerName: 'layer_BangunanPengambilan_10',
+            pane: 'pane_BangunanPengambilan_10',
+            onEachFeature: pop_BangunanPengambilan_10,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_BangunanPengambilan_10_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_BangunanPengambilan_10);
+        map.addLayer(layer_BangunanPengambilan_10);
+        function pop_Reservoir_11(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Nama Reservoir</strong><br />' + (feature.properties['NamaReservoir'] !== null ? autolinker.link(feature.properties['NamaReservoir'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Panjang Luar</th>\
+                        <td>' + (feature.properties['PanjangLuar'] !== null ? autolinker.link(feature.properties['PanjangLuar'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Lebar Luar</th>\
+                        <td>' + (feature.properties['LebarLuar'] !== null ? autolinker.link(feature.properties['LebarLuar'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tinggi Luar</th>\
+                        <td>' + (feature.properties['TinggiLuar'] !== null ? autolinker.link(feature.properties['TinggiLuar'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Panjang Dalam</th>\
+                        <td>' + (feature.properties['PanjangDalam'] !== null ? autolinker.link(feature.properties['PanjangDalam'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Lebar Dalam</th>\
+                        <td>' + (feature.properties['LebarDalam'] !== null ? autolinker.link(feature.properties['LebarDalam'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tinggi Dalam (Bawah Outlet s/d Bawah Peluap)</th>\
+                        <td>' + (feature.properties['TinggiDalam'] !== null ? autolinker.link(feature.properties['TinggiDalam'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Volume Bruto (luar)</th>\
+                        <td>' + (feature.properties['KapasitasM3'] !== null ? autolinker.link(feature.properties['KapasitasM3'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Jumlah Outlet</th>\
+                        <td>' + (feature.properties['Jumlah Outlet'] !== null ? autolinker.link(feature.properties['Jumlah Outlet'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KetUkOutletdll</th>\
+                        <td>' + (feature.properties['KetUkOutletdll'] !== null ? autolinker.link(feature.properties['KetUkOutletdll'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Jenis Konstruksi Reservoir</th>\
+                        <td>' + (feature.properties['KonsReservoir'] !== null ? autolinker.link(feature.properties['KonsReservoir'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kapasitas Bersih</th>\
+                        <td>' + (feature.properties['KapNettoM3'] !== null ? autolinker.link(feature.properties['KapNettoM3'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SumberDana</th>\
+                        <td>' + (feature.properties['SumberDana'] !== null ? autolinker.link(feature.properties['SumberDana'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TahunBangun</th>\
+                        <td>' + (feature.properties['TahunBangun'] !== null ? autolinker.link(feature.properties['TahunBangun'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MeterInduk</th>\
+                        <td>' + (feature.properties['MeterInduk'] !== null ? autolinker.link(feature.properties['MeterInduk'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Reservoir_11_0() {
+            return {
+                pane: 'pane_Reservoir_11',
+                shape: 'square',
+                radius: 7.6,
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(1,94,255,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Reservoir_11');
+        map.getPane('pane_Reservoir_11').style.zIndex = 411;
+        map.getPane('pane_Reservoir_11').style['mix-blend-mode'] = 'normal';
+        var layer_Reservoir_11 = new L.geoJson(json_Reservoir_11, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Reservoir_11',
+            layerName: 'layer_Reservoir_11',
+            pane: 'pane_Reservoir_11',
+            onEachFeature: pop_Reservoir_11,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_Reservoir_11_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Reservoir_11);
+        map.addLayer(layer_Reservoir_11);
+        function pop_PengelolaSPAM_12(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Pengelola</strong><br />' + (feature.properties['Pengelola'] !== null ? autolinker.link(feature.properties['Pengelola'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">JenisPengelola</th>\
+                        <td>' + (feature.properties['JenisPengelola'] !== null ? autolinker.link(feature.properties['JenisPengelola'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KondisiKinerja</th>\
+                        <td>' + (feature.properties['KondisiKinerja'] !== null ? autolinker.link(feature.properties['KondisiKinerja'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DokRPAM</th>\
+                        <td>' + (feature.properties['DokRPAM'] !== null ? autolinker.link(feature.properties['DokRPAM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TahunDokRPAM</th>\
+                        <td>' + (feature.properties['TahunDokRPAM'] !== null ? autolinker.link(feature.properties['TahunDokRPAM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">AreaLayan</th>\
+                        <td>' + (feature.properties['AreaLayan'] !== null ? autolinker.link(feature.properties['AreaLayan'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KepalaPengelola</th>\
+                        <td>' + (feature.properties['KepalaPengelola'] !== null ? autolinker.link(feature.properties['KepalaPengelola'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">AlamatKantor</th>\
+                        <td>' + (feature.properties['AlamatKantor'] !== null ? autolinker.link(feature.properties['AlamatKantor'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LokDesKelKantor</th>\
+                        <td>' + (feature.properties['LokDesKelKantor'] !== null ? autolinker.link(feature.properties['LokDesKelKantor'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LatKantor</th>\
+                        <td>' + (feature.properties['LatKantor'] !== null ? autolinker.link(feature.properties['LatKantor'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LongKantor</th>\
+                        <td>' + (feature.properties['LongKantor'] !== null ? autolinker.link(feature.properties['LongKantor'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TenagaTeknis</th>\
+                        <td>' + (feature.properties['TenagaTeknis'] !== null ? autolinker.link(feature.properties['TenagaTeknis'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TenagaNonTeknis</th>\
+                        <td>' + (feature.properties['TenagaNonTeknis'] !== null ? autolinker.link(feature.properties['TenagaNonTeknis'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">JumlahSRPelanggan</th>\
+                        <td>' + (feature.properties['JumlahSRPelanggan'] !== null ? autolinker.link(feature.properties['JumlahSRPelanggan'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_PengelolaSPAM_12_0() {
+            return {
+                pane: 'pane_PengelolaSPAM_12',
+                shape: 'triangle',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_PengelolaSPAM_12');
+        map.getPane('pane_PengelolaSPAM_12').style.zIndex = 412;
+        map.getPane('pane_PengelolaSPAM_12').style['mix-blend-mode'] = 'normal';
+        var layer_PengelolaSPAM_12 = new L.geoJson(json_PengelolaSPAM_12, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PengelolaSPAM_12',
+            layerName: 'layer_PengelolaSPAM_12',
+            pane: 'pane_PengelolaSPAM_12',
+            onEachFeature: pop_PengelolaSPAM_12,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_PengelolaSPAM_12_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_PengelolaSPAM_12);
+        map.addLayer(layer_PengelolaSPAM_12);
+        function pop_SumberAirBaku_13(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>NamaSumber</strong><br />' + (feature.properties['NamaSumber'] !== null ? autolinker.link(feature.properties['NamaSumber'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">JenisSumber</th>\
+                        <td>' + (feature.properties['JenisSumber'] !== null ? autolinker.link(feature.properties['JenisSumber'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">BangunanPengambilan</th>\
+                        <td>' + (feature.properties['BangunanPengambilan'] !== null ? autolinker.link(feature.properties['BangunanPengambilan'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NoRegInstansi</th>\
+                        <td>' + (feature.properties['NoRegInstansi'] !== null ? autolinker.link(feature.properties['NoRegInstansi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KapSumberLPD</th>\
+                        <td>' + (feature.properties['KapSumberLPD'] !== null ? autolinker.link(feature.properties['KapSumberLPD'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LatSumber</th>\
+                        <td>' + (feature.properties['LatSumber'] !== null ? autolinker.link(feature.properties['LatSumber'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LongSumber</th>\
+                        <td>' + (feature.properties['LongSumber'] !== null ? autolinker.link(feature.properties['LongSumber'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">StatusSumber</th>\
+                        <td>' + (feature.properties['StatusSumber'] !== null ? autolinker.link(feature.properties['StatusSumber'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LokSumberDesKel</th>\
+                        <td>' + (feature.properties['LokSumberDesKel'] !== null ? autolinker.link(feature.properties['LokSumberDesKel'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LokSumberKec</th>\
+                        <td>' + (feature.properties['LokSumberKec'] !== null ? autolinker.link(feature.properties['LokSumberKec'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KetSumber</th>\
+                        <td>' + (feature.properties['KetSumber'] !== null ? autolinker.link(feature.properties['KetSumber'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_SumberAirBaku_13_0() {
+            return {
+                pane: 'pane_SumberAirBaku_13',
+                interactive: true,
+            }
+        }
+        function style_SumberAirBaku_13_1() {
+            return {
+                pane: 'pane_SumberAirBaku_13',
+                interactive: true,
+            }
+        }
+        function style_SumberAirBaku_13_2() {
+            return {
+                pane: 'pane_SumberAirBaku_13',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_SumberAirBaku_13');
+        map.getPane('pane_SumberAirBaku_13').style.zIndex = 413;
+        map.getPane('pane_SumberAirBaku_13').style['mix-blend-mode'] = 'normal';
+        var layer_SumberAirBaku_13 = new L.geoJson.multiStyle(json_SumberAirBaku_13, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_SumberAirBaku_13',
+            layerName: 'layer_SumberAirBaku_13',
+            pane: 'pane_SumberAirBaku_13',
+            onEachFeature: pop_SumberAirBaku_13,
+            pointToLayers: [function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_SumberAirBaku_13_0(feature));
+            },function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_SumberAirBaku_13_1(feature));
+            },function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_SumberAirBaku_13_2(feature));
+            },
+        ]});
+        bounds_group.addLayer(layer_SumberAirBaku_13);
+        map.addLayer(layer_SumberAirBaku_13);
+        function pop_SR_14(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>NamaPelanggan</strong><br />' + (feature.properties['NamaPelanggan'] !== null ? autolinker.link(feature.properties['NamaPelanggan'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">UnitSPAM</th>\
+                        <td>' + (feature.properties['UnitSPAM'] !== null ? autolinker.link(feature.properties['UnitSPAM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KondisiSR</th>\
+                        <td>' + (feature.properties['KondisiSR'] !== null ? autolinker.link(feature.properties['KondisiSR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Keterangan Lain</th>\
+                        <td>' + (feature.properties['KetSRlain'] !== null ? autolinker.link(feature.properties['KetSRlain'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FotoRumahPelanggan</th>\
+                        <td>' + (feature.properties['FotoRumahPelanggan'] !== null ? '<img src="images/' + String(feature.properties['FotoRumahPelanggan']).replace(/[\\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Lokasi Pelanggan</th>\
+                        <td>' + (feature.properties['LokasiPelanggan'] !== null ? autolinker.link(feature.properties['LokasiPelanggan'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_SR_14_0() {
+            return {
+                pane: 'pane_SR_14',
+                radius: geoStyle(10.0),
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: geoStyle(1),
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,0,0,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_SR_14');
+        map.getPane('pane_SR_14').style.zIndex = 414;
+        map.getPane('pane_SR_14').style['mix-blend-mode'] = 'normal';
+        var layer_SR_14 = new L.geoJson(json_SR_14, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_SR_14',
+            layerName: 'layer_SR_14',
+            pane: 'pane_SR_14',
+            onEachFeature: pop_SR_14,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_SR_14_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_SR_14);
+        map.addLayer(layer_SR_14);
+        function pop_AccPipa_15(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>JenisAcc</strong><br />' + (feature.properties['JenisAcc'] !== null ? autolinker.link(feature.properties['JenisAcc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">BahanAcc</th>\
+                        <td>' + (feature.properties['BahanAcc'] !== null ? autolinker.link(feature.properties['BahanAcc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">JenisKonektor</th>\
+                        <td>' + (feature.properties['JenisKonektor'] !== null ? autolinker.link(feature.properties['JenisKonektor'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">UkAcc</th>\
+                        <td>' + (feature.properties['UkAcc'] !== null ? autolinker.link(feature.properties['UkAcc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KondisiAcc</th>\
+                        <td>' + (feature.properties['KondisiAcc'] !== null ? autolinker.link(feature.properties['KondisiAcc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_AccPipa_15_0() {
+            return {
+                pane: 'pane_AccPipa_15',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(8,255,0,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_AccPipa_15');
+        map.getPane('pane_AccPipa_15').style.zIndex = 415;
+        map.getPane('pane_AccPipa_15').style['mix-blend-mode'] = 'normal';
+        var layer_AccPipa_15 = new L.geoJson(json_AccPipa_15, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_AccPipa_15',
+            layerName: 'layer_AccPipa_15',
+            pane: 'pane_AccPipa_15',
+            onEachFeature: pop_AccPipa_15,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_AccPipa_15_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_AccPipa_15);
+        map.addLayer(layer_AccPipa_15);
+        function pop_SarprasSPAM_16(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">UnitSPAM</th>\
+                        <td>' + (feature.properties['UnitSPAM'] !== null ? autolinker.link(feature.properties['UnitSPAM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FungsiPrasarana</th>\
+                        <td>' + (feature.properties['FungsiPrasarana'] !== null ? autolinker.link(feature.properties['FungsiPrasarana'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KapasitasSarpras</th>\
+                        <td>' + (feature.properties['KapasitasSarpras'] !== null ? autolinker.link(feature.properties['KapasitasSarpras'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SatuanKap</th>\
+                        <td>' + (feature.properties['SatuanKap'] !== null ? autolinker.link(feature.properties['SatuanKap'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LuasLahanSarpras</th>\
+                        <td>' + (feature.properties['LuasLahanSarpras'] !== null ? autolinker.link(feature.properties['LuasLahanSarpras'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Konstruksi</th>\
+                        <td>' + (feature.properties['Konstruksi'] !== null ? autolinker.link(feature.properties['Konstruksi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_SarprasSPAM_16_0() {
+            return {
+                pane: 'pane_SarprasSPAM_16',
+                radius: 10.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(232,113,141,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_SarprasSPAM_16');
+        map.getPane('pane_SarprasSPAM_16').style.zIndex = 416;
+        map.getPane('pane_SarprasSPAM_16').style['mix-blend-mode'] = 'normal';
+        var layer_SarprasSPAM_16 = new L.geoJson(json_SarprasSPAM_16, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_SarprasSPAM_16',
+            layerName: 'layer_SarprasSPAM_16',
+            pane: 'pane_SarprasSPAM_16',
+            onEachFeature: pop_SarprasSPAM_16,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_SarprasSPAM_16_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_SarprasSPAM_16);
+        map.addLayer(layer_SarprasSPAM_16);
+        function pop_JaringanPipaSPAM_17(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nama Unit SPAM</th>\
+                        <td>' + (feature.properties['UnitSPAM'] !== null ? autolinker.link(feature.properties['UnitSPAM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>JenisPipa</strong><br />' + (feature.properties['JenisPipa'] !== null ? autolinker.link(feature.properties['JenisPipa'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PanjangPipa</th>\
+                        <td>' + (feature.properties['PanjangPipa'] !== null ? autolinker.link(feature.properties['PanjangPipa'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Ditanam</th>\
+                        <td>' + (feature.properties['Ditanam'] !== null ? autolinker.link(feature.properties['Ditanam'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FungsiPipa</th>\
+                        <td>' + (feature.properties['FungsiPipa'] !== null ? autolinker.link(feature.properties['FungsiPipa'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KelasPipa</th>\
+                        <td>' + (feature.properties['KelasPipa'] !== null ? autolinker.link(feature.properties['KelasPipa'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Ket</th>\
+                        <td>' + (feature.properties['Ket'] !== null ? autolinker.link(feature.properties['Ket'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nominal Diameter</th>\
+                        <td>' + (feature.properties['UkPipaND'] !== null ? autolinker.link(feature.properties['UkPipaND'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FotoUjungAwal</th>\
+                        <td>' + (feature.properties['FotoUjungAwal'] !== null ? '<img src="images/' + String(feature.properties['FotoUjungAwal']).replace(/[\\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FotoUjungAkhir</th>\
+                        <td>' + (feature.properties['FotoUjungAkhir'] !== null ? '<img src="images/' + String(feature.properties['FotoUjungAkhir']).replace(/[\\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_JaringanPipaSPAM_17_0(feature) {
+            switch(String(feature.properties['FungsiPipa'])) {
+                case '1':
+                    return {
+                pane: 'pane_JaringanPipaSPAM_17',
+                opacity: 1,
+                color: 'rgba(1,30,255,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: geoStyle(4.0),
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '2':
+                    return {
+                pane: 'pane_JaringanPipaSPAM_17',
+                opacity: 1,
+                color: 'rgba(251,54,54,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: geoStyle(4.0),
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '3':
+                    return {
+                pane: 'pane_JaringanPipaSPAM_17',
+                opacity: 1,
+                color: 'rgba(16,210,26,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: geoStyle(3.0),
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '4':
+                    return {
+                pane: 'pane_JaringanPipaSPAM_17',
+                opacity: 1,
+                color: 'rgba(255,124,1,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: geoStyle(3.0),
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '5':
+                    return {
+                pane: 'pane_JaringanPipaSPAM_17',
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: geoStyle(3.0),
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_JaringanPipaSPAM_17');
+        map.getPane('pane_JaringanPipaSPAM_17').style.zIndex = 417;
+        map.getPane('pane_JaringanPipaSPAM_17').style['mix-blend-mode'] = 'normal';
+        var layer_JaringanPipaSPAM_17 = new L.geoJson(json_JaringanPipaSPAM_17, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_JaringanPipaSPAM_17',
+            layerName: 'layer_JaringanPipaSPAM_17',
+            pane: 'pane_JaringanPipaSPAM_17',
+            onEachFeature: pop_JaringanPipaSPAM_17,
+            style: style_JaringanPipaSPAM_17_0,
+        });
+        bounds_group.addLayer(layer_JaringanPipaSPAM_17);
+        map.addLayer(layer_JaringanPipaSPAM_17);
+            var title = new L.Control();
+            title.onAdd = function (map) {
+                this._div = L.DomUtil.create('div', 'info');
+                this.update();
+                return this._div;
+            };
+            title.update = function () {
+                this._div.innerHTML = '<h2>Basis Data Infrastruktur Air Minum</h2>';
+            };
+            title.addTo(map);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'JaringanPipaSPAM<br /><table><tr><td style="text-align: center;"><img src="legend/JaringanPipaSPAM_17_Transmisi0.png" /></td><td>Transmisi</td></tr><tr><td style="text-align: center;"><img src="legend/JaringanPipaSPAM_17_DistribusiUtama1.png" /></td><td>Distribusi Utama</td></tr><tr><td style="text-align: center;"><img src="legend/JaringanPipaSPAM_17_DistribusiBagi2.png" /></td><td>Distribusi Bagi</td></tr><tr><td style="text-align: center;"><img src="legend/JaringanPipaSPAM_17_Pelayanan3.png" /></td><td>Pelayanan</td></tr><tr><td style="text-align: center;"><img src="legend/JaringanPipaSPAM_17_Lainnya4.png" /></td><td>Lainnya</td></tr></table>': layer_JaringanPipaSPAM_17,'<img src="legend/SarprasSPAM_16.png" /> SarprasSPAM': layer_SarprasSPAM_16,'<img src="legend/AccPipa_15.png" /> AccPipa': layer_AccPipa_15,'<img src="legend/SR_14.png" /> SR': layer_SR_14,'<img src="legend/SumberAirBaku_13.png" /> SumberAirBaku': layer_SumberAirBaku_13,'<img src="legend/PengelolaSPAM_12.png" /> PengelolaSPAM': layer_PengelolaSPAM_12,'<img src="legend/Reservoir_11.png" /> Reservoir': layer_Reservoir_11,'<img src="legend/BangunanPengambilan_10.png" /> BangunanPengambilan': layer_BangunanPengambilan_10,'<img src="legend/IPA_9.png" /> IPA': layer_IPA_9,'<img src="legend/UnitSPALDT_8.png" /> UnitSPALDT': layer_UnitSPALDT_8,' Batas_Wilayah_Kecamatan_SITARO<br /><table><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kecamatan_SITARO_7_Biaro0.png" /></td><td>Biaro</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kecamatan_SITARO_7_SiauBarat1.png" /></td><td>Siau Barat</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kecamatan_SITARO_7_SiauBaratSelatan2.png" /></td><td>Siau Barat Selatan</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kecamatan_SITARO_7_SiauBaratUtara3.png" /></td><td>Siau Barat Utara</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kecamatan_SITARO_7_SiauTengah4.png" /></td><td>Siau Tengah</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kecamatan_SITARO_7_SiauTimur5.png" /></td><td>Siau Timur</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kecamatan_SITARO_7_SiauTimurSelatan6.png" /></td><td>Siau Timur Selatan</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kecamatan_SITARO_7_Tagulandang7.png" /></td><td>Tagulandang</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kecamatan_SITARO_7_TagulandangSelatan8.png" /></td><td>Tagulandang Selatan</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kecamatan_SITARO_7_TagulandangUtara9.png" /></td><td>Tagulandang Utara</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kecamatan_SITARO_7_10.png" /></td><td></td></tr></table>': layer_Batas_Wilayah_Kecamatan_SITARO_7,' Batas_Wilayah_Kel_Desa_SITARO<br /><table><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Akesimbeka0.png" /></td><td>Akesimbeka</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Apelawo1.png" /></td><td>Apelawo</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Apengsala2.png" /></td><td>Apengsala</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_AreaTidakTerdefinisi3.png" /></td><td>Area Tidak Terdefinisi</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Bahoi4.png" /></td><td>Bahoi</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Bahu5.png" /></td><td>Bahu</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Balehumara6.png" /></td><td>Balehumara</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Balirangeng7.png" /></td><td>Balirangeng</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Bandil8.png" /></td><td>Bandil</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_BarangkaPehe9.png" /></td><td>Barangka Pehe</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Batubulan10.png" /></td><td>Batubulan</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Batumawira11.png" /></td><td>Batumawira</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Batusenggo12.png" /></td><td>Batusenggo</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Bawo13.png" /></td><td>Bawo</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Bawoleu14.png" /></td><td>Bawoleu</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Bebali15.png" /></td><td>Bebali</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Beong16.png" /></td><td>Beong</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Biau17.png" /></td><td>Biau</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_BiauSeha18.png" /></td><td>Biau Seha</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Binalu19.png" /></td><td>Binalu</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_BiraKiama20.png" /></td><td>Bira Kiama</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Birarikei21.png" /></td><td>Birarikei</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Boto22.png" /></td><td>Boto</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Buang23.png" /></td><td>Buang</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Buha24.png" /></td><td>Buha</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Buhias25.png" /></td><td>Buhias</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Buise26.png" /></td><td>Buise</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Bukide27.png" /></td><td>Bukide</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Bulangan28.png" /></td><td>Bulangan</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Bumbiha29.png" /></td><td>Bumbiha</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Dalinsaheng30.png" /></td><td>Dalinsaheng</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Dame31.png" /></td><td>Dame</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_DameI32.png" /></td><td>Dame I</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Deahe33.png" /></td><td>Deahe</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Dompase34.png" /></td><td>Dompase</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Haasi35.png" /></td><td>Haasi</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Hiung36.png" /></td><td>Hiung</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Humbia37.png" /></td><td>Humbia</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Kalihiang38.png" /></td><td>Kalihiang</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Kanang39.png" /></td><td>Kanang</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Kanawong40.png" /></td><td>Kanawong</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Kapeta41.png" /></td><td>Kapeta</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Karalung42.png" /></td><td>Karalung</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_KaralungSatu43.png" /></td><td>Karalung Satu</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Karungo44.png" /></td><td>Karungo</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Kawahang45.png" /></td><td>Kawahang</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Kiawang46.png" /></td><td>Kiawang</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Kinali47.png" /></td><td>Kinali</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Kisihang48.png" /></td><td>Kisihang</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Laghaeng49.png" /></td><td>Laghaeng</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Lahopang50.png" /></td><td>Lahopang</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Lai51.png" /></td><td>Lai</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Laingpatehi52.png" /></td><td>Laingpatehi</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Lamanggo53.png" /></td><td>Lamanggo</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Lehi54.png" /></td><td>Lehi</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Lesah55.png" /></td><td>Lesah</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_LesahRende56.png" /></td><td>Lesah Rende</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Lia57.png" /></td><td>Lia</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_LiaSatu58.png" /></td><td>Lia Satu</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Lumbo59.png" /></td><td>Lumbo</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Mahangiang60.png" /></td><td>Mahangiang</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Mahuneni61.png" /></td><td>Mahuneni</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Makalehi62.png" /></td><td>Makalehi</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_MakalehiTimur63.png" /></td><td>Makalehi Timur</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_MakalehiUtara64.png" /></td><td>Makalehi Utara</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Makoa65.png" /></td><td>Makoa</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Mala66.png" /></td><td>Mala</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Matole67.png" /></td><td>Matole</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Minanga68.png" /></td><td>Minanga</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Mini69.png" /></td><td>Mini</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Mohongsawang70.png" /></td><td>Mohongsawang</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Mulengen71.png" /></td><td>Mulengen</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Nameng72.png" /></td><td>Nameng</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Ondong73.png" /></td><td>Ondong</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Pahepa74.png" /></td><td>Pahepa</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Pahiama75.png" /></td><td>Pahiama</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Pangirolong76.png" /></td><td>Pangirolong</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Paniki77.png" /></td><td>Paniki</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Paseng78.png" /></td><td>Paseng</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Pehe79.png" /></td><td>Pehe</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Peling80.png" /></td><td>Peling</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_PelingSawang81.png" /></td><td>Peling Sawang</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Pumpente82.png" /></td><td>Pumpente</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Salili83.png" /></td><td>Salili</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Sawang84.png" /></td><td>Sawang</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Talawid85.png" /></td><td>Talawid</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Tanaki86.png" /></td><td>Tanaki</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Tapile87.png" /></td><td>Tapile</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Tarorane88.png" /></td><td>Tarorane</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Tatahadeng89.png" /></td><td>Tatahadeng</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Tope90.png" /></td><td>Tope</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Tulusan91.png" /></td><td>Tulusan</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Winangun92.png" /></td><td>Winangun</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_Wo93.png" /></td><td>Wo</td></tr><tr><td style="text-align: center;"><img src="legend/Batas_Wilayah_Kel_Desa_SITARO_6_94.png" /></td><td></td></tr></table>': layer_Batas_Wilayah_Kel_Desa_SITARO_6,"hillshades": layer_hillshades_4,"Google Labels": layer_GoogleLabels_2,"Google Satellite": layer_GoogleSatellite_1,'<img src="legend/background_0.png" /> background': layer_background_0,},{collapsed:false}).addTo(map);L.control.scale({position: 'bottomleft', maxWidth: 100, metric: true, imperial: false, updateWhenIdle: false}).addTo(map);
+        map.on("zoomend", function(){
+
+                if (map.hasLayer(layer_Batas_Wilayah_Kel_Desa_SITARO_6)) {
+                    if (map.getZoom() <= 12 && map.getZoom() >= 19) {
+                        layer_Batas_Wilayah_Kel_Desa_SITARO_6.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_Batas_Wilayah_Kel_Desa_SITARO_6.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_Batas_Wilayah_Kecamatan_SITARO_7)) {
+                    if (map.getZoom() <= 11 && map.getZoom() >= 19) {
+                        layer_Batas_Wilayah_Kecamatan_SITARO_7.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_Batas_Wilayah_Kecamatan_SITARO_7.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+        });
+        setBounds();
+        var i = 0;
+        layer_Batas_Wilayah_Kel_Desa_SITARO_6.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['WADMKD'] !== null?String('<div style="color: #ffea01; font-size: 14pt; font-family: \'Calibri\', sans-serif;">' + layer.feature.properties['WADMKD']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Batas_Wilayah_Kel_Desa_SITARO_6'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_Batas_Wilayah_Kecamatan_SITARO_7.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['WADMKC'] !== null?String('<div style="color: #011fff; font-size: 16pt; font-weight: bold; font-family: \'Candara\', sans-serif;">' + layer.feature.properties['WADMKC']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Batas_Wilayah_Kecamatan_SITARO_7'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+                if (map.hasLayer(layer_Batas_Wilayah_Kel_Desa_SITARO_6)) {
+                    if (map.getZoom() <= 12 && map.getZoom() >= 19) {
+                        layer_Batas_Wilayah_Kel_Desa_SITARO_6.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_Batas_Wilayah_Kel_Desa_SITARO_6.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_Batas_Wilayah_Kecamatan_SITARO_7)) {
+                    if (map.getZoom() <= 11 && map.getZoom() >= 19) {
+                        layer_Batas_Wilayah_Kecamatan_SITARO_7.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_Batas_Wilayah_Kecamatan_SITARO_7.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+        newM2px();
+
+            layer_SR_14.setStyle(style_SR_14_0);
+            layer_JaringanPipaSPAM_17.setStyle(style_JaringanPipaSPAM_17_0);
+        map.on("zoomend", function(){
+            newM2px();
+
+            layer_SR_14.setStyle(style_SR_14_0);
+            layer_JaringanPipaSPAM_17.setStyle(style_JaringanPipaSPAM_17_0);
+        });
+        resetLabels([layer_Batas_Wilayah_Kel_Desa_SITARO_6,layer_Batas_Wilayah_Kecamatan_SITARO_7]);
+        map.on("zoomend", function(){
+            resetLabels([layer_Batas_Wilayah_Kel_Desa_SITARO_6,layer_Batas_Wilayah_Kecamatan_SITARO_7]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_Batas_Wilayah_Kel_Desa_SITARO_6,layer_Batas_Wilayah_Kecamatan_SITARO_7]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_Batas_Wilayah_Kel_Desa_SITARO_6,layer_Batas_Wilayah_Kecamatan_SITARO_7]);
+        });
+        </script>
+    </body>
+</html>
